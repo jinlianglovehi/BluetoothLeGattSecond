@@ -6,7 +6,7 @@ import com.example.android.bluetoothlegatt.service.ITaskCallback;
 interface ITaskBinder {
 
         boolean isTaskRunning();
-        void startReBackData();
+        void startReBackData(String  data);
         void registerCallback(in ITaskCallback cb);
         void unregisterCallback(in ITaskCallback cb);
 

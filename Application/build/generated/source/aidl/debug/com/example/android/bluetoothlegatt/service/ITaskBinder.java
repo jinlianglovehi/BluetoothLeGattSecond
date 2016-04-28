@@ -53,7 +53,9 @@ return true;
 case TRANSACTION_startReBackData:
 {
 data.enforceInterface(DESCRIPTOR);
-this.startReBackData();
+java.lang.String _arg0;
+_arg0 = data.readString();
+this.startReBackData(_arg0);
 reply.writeNoException();
 return true;
 }
@@ -110,12 +112,13 @@ _data.recycle();
 }
 return _result;
 }
-@Override public void startReBackData() throws android.os.RemoteException
+@Override public void startReBackData(java.lang.String data) throws android.os.RemoteException
 {
 android.os.Parcel _data = android.os.Parcel.obtain();
 android.os.Parcel _reply = android.os.Parcel.obtain();
 try {
 _data.writeInterfaceToken(DESCRIPTOR);
+_data.writeString(data);
 mRemote.transact(Stub.TRANSACTION_startReBackData, _data, _reply, 0);
 _reply.readException();
 }
@@ -161,7 +164,7 @@ static final int TRANSACTION_registerCallback = (android.os.IBinder.FIRST_CALL_T
 static final int TRANSACTION_unregisterCallback = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
 }
 public boolean isTaskRunning() throws android.os.RemoteException;
-public void startReBackData() throws android.os.RemoteException;
+public void startReBackData(java.lang.String data) throws android.os.RemoteException;
 public void registerCallback(com.example.android.bluetoothlegatt.service.ITaskCallback cb) throws android.os.RemoteException;
 public void unregisterCallback(com.example.android.bluetoothlegatt.service.ITaskCallback cb) throws android.os.RemoteException;
 }

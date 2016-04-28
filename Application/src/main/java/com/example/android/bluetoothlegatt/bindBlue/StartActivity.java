@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.android.bluetoothlegatt.R;
@@ -25,9 +26,11 @@ import butterknife.OnClick;
 public class StartActivity extends Activity {
     private final static String TAG = StartActivity.class.getName();
     @Bind(R.id.startService)
-    TextView startService;
+    EditText startService;
     @Bind(R.id.reback_message)
     TextView rebackMessage;
+    @Bind(R.id.hand_result)
+    TextView handResult;
 
     private ITaskBinder mService;
 
@@ -59,21 +62,16 @@ public class StartActivity extends Activity {
 
     }
 
-@OnClick(R.id.startService)
-    public void startService() {
-
-   reBackData();
-
-    }
 
     @OnClick(R.id.reback_message)
-    public void reBackData(){
+    public void reBackData() {
 
         try {
-            if (mService!=null) {
+            if (mService != null) {
                 Log.i(TAG, "reBackData: to Service Message");
-                mService.startReBackData();
-            }else{
+//                String result = startService.getText().toString();
+                mService.startReBackData(startService.getText().toString().trim());
+            } else {
                 Log.i(TAG, "reBackData: mService为空 ");
             }
         } catch (RemoteException e) {
@@ -87,10 +85,10 @@ public class StartActivity extends Activity {
     private void registerCallBack() {
 
         try {
-            if(mService!=null){
+            if (mService != null) {
                 mService.registerCallback(callback);
                 Log.i(TAG, "registerMessage: 消息注册成功 ");
-            }else{
+            } else {
                 Log.i(TAG, "registerCallBack: 注册失败");
             }
 
@@ -117,11 +115,11 @@ public class StartActivity extends Activity {
     private void unRegisterCallBack() {
         try {
 
-            if(mService!=null) {
+            if (mService != null) {
                 Log.i(TAG, "unRegisterCallBack: mService 取消实例");
                 mService.unregisterCallback(callback);
-            }else{
-                
+            } else {
+
             }
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -130,9 +128,10 @@ public class StartActivity extends Activity {
 
     private ITaskCallback callback = new ITaskCallback.Stub() {
         @Override
-        public void actionPerformed(int actionId) throws RemoteException {
+        public void actionPerformed(String actionId) throws RemoteException {
 
-            Log.i(TAG, "actionPerformed: Server ReBackNum:"+ actionId);
+            handResult.setText(actionId);
+            Log.i(TAG, "actionPerformed: Server ReBackNum:" + actionId);
         }
     };
 

@@ -6,7 +6,7 @@ package com.example.android.bluetoothlegatt.service;
 interface ITaskCallback {
 
 
-    void actionPerformed(int actionId);
+    void actionPerformed(String result);
 
 
 }

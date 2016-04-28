@@ -58,7 +58,7 @@ public class MyService extends Service {
         Log.v(TAG, "###################------ " + str + "------");
     }
 
-    void callback(int val) {
+    void callback(String val) {
         final int N = mCallbacks.beginBroadcast();
         for (int i=0; i<N; i++) {
             try {
@@ -84,10 +84,11 @@ public class MyService extends Service {
             return false;
         }
 
+
         @Override
-        public void startReBackData() throws RemoteException {
+        public void startReBackData(String data) throws RemoteException {
             Log.i(TAG, "startReBackData: ");
-            toClientData();
+            toClientData(data);
         }
 
         public void registerCallback(ITaskCallback cb) {
@@ -107,12 +108,14 @@ public class MyService extends Service {
     final RemoteCallbackList<ITaskCallback> mCallbacks = new RemoteCallbackList <ITaskCallback>();
 
 
-    private void toClientData(){
+    private void toClientData(String data){
+
 
         final int N = mCallbacks.beginBroadcast();
+        Log.i(TAG, "toClientData: beginBroadCastSize:"+ N);
         for (int i=0; i<N; i++) {
             try {
-                mCallbacks.getBroadcastItem(i).actionPerformed(9);
+                mCallbacks.getBroadcastItem(i).actionPerformed("Server处理数据:"+ (Integer.parseInt(data)+10));
             }
             catch (RemoteException e) {
 

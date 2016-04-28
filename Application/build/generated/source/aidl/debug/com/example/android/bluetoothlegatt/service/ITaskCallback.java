@@ -47,8 +47,8 @@ return true;
 case TRANSACTION_actionPerformed:
 {
 data.enforceInterface(DESCRIPTOR);
-int _arg0;
-_arg0 = data.readInt();
+java.lang.String _arg0;
+_arg0 = data.readString();
 this.actionPerformed(_arg0);
 reply.writeNoException();
 return true;
@@ -71,13 +71,13 @@ public java.lang.String getInterfaceDescriptor()
 {
 return DESCRIPTOR;
 }
-@Override public void actionPerformed(int actionId) throws android.os.RemoteException
+@Override public void actionPerformed(java.lang.String result) throws android.os.RemoteException
 {
 android.os.Parcel _data = android.os.Parcel.obtain();
 android.os.Parcel _reply = android.os.Parcel.obtain();
 try {
 _data.writeInterfaceToken(DESCRIPTOR);
-_data.writeInt(actionId);
+_data.writeString(result);
 mRemote.transact(Stub.TRANSACTION_actionPerformed, _data, _reply, 0);
 _reply.readException();
 }
@@ -89,5 +89,5 @@ _data.recycle();
 }
 static final int TRANSACTION_actionPerformed = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
 }
-public void actionPerformed(int actionId) throws android.os.RemoteException;
+public void actionPerformed(java.lang.String result) throws android.os.RemoteException;
 }
